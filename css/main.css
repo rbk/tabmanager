@@ -1,0 +1,63 @@
+/* line 3, ../sass/main.scss */
+h1, h2, h3, h4 {
+  line-height: 1;
+}
+
+/* line 7, ../sass/main.scss */
+.button {
+  color: #fff;
+  background-color: #2E9870;
+  font-size: 16px;
+  margin: 0 auto;
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 8px;
+}
+/* line 16, ../sass/main.scss */
+.button.lg {
+  max-width: 175px;
+  display: block;
+  font-size: 22px;
+  padding: 15px 15px;
+  margin-top: 50px;
+}
+/* line 25, ../sass/main.scss */
+.button:hover {
+  background-color: #3abf8d;
+}
+
+/* line 30, ../sass/main.scss */
+.right {
+  float: right;
+}
+
+/* line 33, ../sass/main.scss */
+h1#ext-title {
+  font-size: 16px;
+  float: left;
+  padding: 8px;
+}
+
+/* line 38, ../sass/main.scss */
+header {
+  background-color: #2E9870;
+  color: #fff;
+}
+
+/* line 43, ../sass/main.scss */
+#main {
+  width: 400px;
+  min-height: 200px;
+}
+
+/* line 50, ../sass/main.scss */
+.folder-body a {
+  display: block;
+}
+
+/* line 55, ../sass/main.scss */
+.folder-header {
+  padding: 5px;
+  background-color: #e1e1e1;
+  margin: 3px 0;
+}

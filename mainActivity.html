@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app="tabManager">
+<head>
+	<meta charset="UTF-8">
+	<title>Tab Manager</title>
+	<link rel="stylesheet" href="http://s3.richardkeller.net/cdn/reset.css">
+	<link rel="stylesheet" href="fa/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+	<div id="main" ng-controller="MainCtrl">
+
+		
+		<header>
+			<h1 id="ext-title">{{project_title}}</h1>
+			<a ng-if="folders.length > 0" href="#" class="button right" ng-click="addFolder()">Add Folder&nbsp;<i class="fa fa-plus"></i></a>
+			<div class="clearfix"></div>
+		</header>
+
+		<div id="selectTitle">
+			<label>Enter a Title</label>
+			<input type="text" class="title" placeholder="Type a title">
+			<br>
+			<a href="#save-title" class="button">Save</a>
+			<a href="#cancel-title" class="button">Cancel</a>
+		</div>
+
+		<!-- {{current_tabs}} -->
+		<div ng-repeat="tab in current_tabs">
+			<!-- <img ng-if="tab.favIconUrl" src="{{tab.favIconUrl}}" style="width: 10px;"> -->
+			<!-- <a href="{{tab.url}}">{{tab.title}}</a> -->
+		</div>
+
+		<a ng-if="folders.length === 0" href="#" class="button lg" ng-click="addFolder()">Add Folder</a>
+		
+
+		<div id="folder-list">
+			<div class="folder" ng-repeat="folder in folders" data-index="{{$index}}">
+				<div class="folder-header">
+					<input type="text" ng-model="folder.name">
+					<a href="#toggle">Active/Inactive</a>
+					<!-- <span class="badge">{{folder.tabs.length}}</span> -->
+					<!-- <span class="fa fa-plus" title="view tabs in folder"></span> -->
+					<a href="#" title="Delete Folder and all tabs" ng-click="removeFolder($index)">
+						<i class="fa fa-close"></i>
+					</a>
+					<!-- <span class="fa fa-plus" title="Add Tab to Folder"></span>				 -->
+				</div>
+				<div class="folder-body">
+					<a href="{{tab.url}}" ng-repeat="tab in folder.tabs">{{tab.name}}</a>
+				</div>
+ 			</div>
+		</div>
+		<pre>{{folders}}</pre>
+
+
+
+
+	</div>
+<script src="js/jquery/jquery.min.js"></script>
+<script src="js/angular/angular.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

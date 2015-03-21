@@ -1,0 +1,59 @@
+$base-color: #2E9870;
+
+h1,h2,h3,h4 {
+	line-height: 1;
+}
+
+.button {
+	color: #fff;
+	background-color: $base-color;
+	font-size: 16px;
+	margin: 0 auto;
+	text-transform: uppercase;
+	display: inline-block;
+	padding: 8px;
+
+	&.lg {
+		max-width: 175px;
+		display: block;
+		font-size: 22px;
+		padding: 15px 15px;
+		margin-top: 50px;
+
+	}
+
+	&:hover {
+		background-color: lighten( $base-color, 10% );
+	}
+
+}
+.right {
+	float: right;
+}
+h1#ext-title{
+	font-size: 16px;
+	float: left;
+	padding: 8px;
+}
+header {
+	background-color: $base-color;
+	color: #fff;
+}
+
+#main {
+	width: 400px;
+	min-height: 200px;
+}
+
+
+
+.folder-body a {
+	display: block;
+}
+
+
+.folder-header {
+	padding: 5px;
+	background-color: #e1e1e1;
+	margin: 3px 0;
+}
