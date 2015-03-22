@@ -10,39 +10,13 @@ app.controller('MainCtrl', ['$scope', '$http', function($scope, $http){
 	$scope.active = '';
 	$scope.project_title = 'Tab Workspace Manager';
 	$scope.current_tabs = [];
+	$scope.folders = [];
 
-	$scope.folders = [
-		// {
-		// 	"name": "Folder1",
-		// 	"tabs": [
-		// 		{
-		// 			"name": "GitHub",
-		// 			"url": "http://richardkeller.net"
-		// 		},
-		// 		{
-		// 			"name": "GitHub2",
-		// 			"url": "http://richardkeller.net"
-		// 		}
-		// 	]
-		// },
-		// {
-		// 	"name": "folder2",
-		// 	"tabs": [
-		// 		{
-		// 			"name": "Blah",
-		// 			"url": "http://richardkeller.net"
-		// 		},
-		// 		{
-		// 			"name": "Blah2",
-		// 			"url": "http://richardkeller.net"
-		// 		}
-		// 	]
-		// }
-	];
+	// Storage
 	chrome.storage.local.get('tabManager', function(result) {
 		$scope.folders = result.tabManager;
 		$scope.$apply();
-		if( $scope.folders.length > 1 ){
+		if( $scope.folders.length > 0 ){
 			$scope.showFolderList = true;
 		}
 		// console.log( result )
@@ -55,9 +29,14 @@ app.controller('MainCtrl', ['$scope', '$http', function($scope, $http){
 
 	$scope.addFolder = function( ){
 		$scope.newTitle = true;
+		$scope.showFolderList = false;
 		// $scope.folders.push({"name": "test", "tabs": []});
 	}
+	$scope.cancelNewFolder = function( ){
+		$scope.newTitle = false;
+		$scope.showFolderList = true;
 
+	}
 	$scope.saveNewFolder = function( ){
 		
 		$scope.newTitle = false;
@@ -73,7 +52,7 @@ app.controller('MainCtrl', ['$scope', '$http', function($scope, $http){
 	}
 
 	$scope.removeFolder = function(index){
-		// var conf = confirm('Are you sure you want to delete this folder and all of its tabs?'); if( !conf ) { return };
+		var conf = confirm('Are you sure you want to delete this folder and all of its tabs?'); if( !conf ) { return };
 		$scope.folders.splice(index, 1);
 		$scope.syncFolders();
 	}
@@ -86,9 +65,46 @@ app.controller('MainCtrl', ['$scope', '$http', function($scope, $http){
 		// console.log( tabUrl )
 		$scope.folders[$scope.current_folder].tabs.push(tab)
 	}
+	$scope.toggleTab = function( newtab ){
+		var allTabsInFolder = $scope.folders[$scope.current_folder].tabs;
+		
+		var found = false;
+
+		for( var i=0; i<allTabsInFolder.length; i++){
+			if( allTabsInFolder[i].url.match(newtab.url) ){
+				$scope.folders[$scope.current_folder].tabs.splice(i,1);
+				found = true;
+			}
+		}
+		if( found == false ){
+			$scope.folders[$scope.current_folder].tabs.push(newtab);
+		}
+		$scope.syncFolders();
+
+	}
 	$scope.saveSelectedTabs = function(  ){
 		// save folder to chrome storage
 		// hide tab ui
+	}
+	$scope.activateTabs = function( index ){
+		var tabsInFolder = $scope.folders[index].tabs;
+		for( var i=0; i < tabsInFolder.length; i++ ){
+			chrome.tabs.create({ url: tabsInFolder[i].url }, function(){ return });
+		}
+	}
+	$scope.deactiveTabs = function( index ){
+		var tabsInFolder = $scope.folders[index].tabs;
+		var tabsToRemove = [];
+		for( var c = 0; c < $scope.current_tabs.length; c++ ){
+			for( var i=0; i < tabsInFolder.length; i++ ){
+			// console.log( 'Scope:' + $scope.current_tabs[i].url );
+			// console.log( 'tabManager:' + tabsInFolder[i].url );
+				if( $scope.current_tabs[c].url == tabsInFolder[i].url ){
+					tabsToRemove.push( $scope.current_tabs[c].id );
+				}				
+			}
+		}
+		chrome.tabs.remove( tabsToRemove, function(){ return });
 	}
 	
 	// Get all tabs currently open

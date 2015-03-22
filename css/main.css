@@ -1,9 +1,46 @@
-/* line 3, ../sass/main.scss */
+/* line 2, ../sass/main.scss */
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+}
+
+/* line 6, ../sass/main.scss */
+input {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+}
+
+/* line 10, ../sass/main.scss */
 h1, h2, h3, h4 {
   line-height: 1;
 }
 
-/* line 7, ../sass/main.scss */
+/* line 13, ../sass/main.scss */
+a {
+  color: #2E9870;
+  -webkit-transition: all .2s ease-in-out;
+}
+/* line 16, ../sass/main.scss */
+a:hover {
+  color: #3abf8d;
+}
+
+/* line 20, ../sass/main.scss */
+input[type=text]#newFolderName {
+  outline: 0;
+  border: 0;
+  font-size: 22px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+/* line 28, ../sass/main.scss */
+#selectTitle {
+  padding: 30px 40px;
+}
+
+/* line 32, ../sass/main.scss */
 .button {
   color: #fff;
   background-color: #2E9870;
@@ -13,51 +50,89 @@ h1, h2, h3, h4 {
   padding: 8px;
   text-align: center;
 }
-/* line 16, ../sass/main.scss */
+/* line 41, ../sass/main.scss */
 .button.lg {
   max-width: 175px;
   display: block;
   font-size: 22px;
   padding: 15px 15px;
-  margin-top: 50px;
+  margin: 50px auto;
 }
-/* line 25, ../sass/main.scss */
+/* line 50, ../sass/main.scss */
 .button:hover {
+  color: #fff;
   background-color: #3abf8d;
 }
 
-/* line 30, ../sass/main.scss */
+/* line 56, ../sass/main.scss */
+.folder-list-input {
+  background-color: transparent;
+  border: 0;
+  width: 200px;
+  outline: 0;
+  font-size: 16px;
+}
+
+/* line 63, ../sass/main.scss */
 .right {
   float: right;
 }
 
-/* line 33, ../sass/main.scss */
+/* line 66, ../sass/main.scss */
+.folder {
+  background-color: #e1e1e1;
+}
+/* line 68, ../sass/main.scss */
+.folder:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+
+/* line 75, ../sass/main.scss */
+.badge {
+  background-color: #2E9870;
+  font-size: 12px;
+  border-radius: 100%;
+  color: #fff;
+  display: inline-block;
+  height: 15px;
+  width: 15px;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* line 86, ../sass/main.scss */
+.folder-nav {
+  display: inline-block;
+}
+/* line 88, ../sass/main.scss */
+.folder-nav a, .folder-nav span {
+  margin: 0 5px;
+}
+
+/* line 93, ../sass/main.scss */
 h1#ext-title {
   font-size: 16px;
   float: left;
   padding: 8px;
 }
 
-/* line 38, ../sass/main.scss */
+/* line 98, ../sass/main.scss */
 header {
   background-color: #2E9870;
   color: #fff;
 }
 
-/* line 43, ../sass/main.scss */
+/* line 103, ../sass/main.scss */
 #main {
   width: 400px;
-  min-height: 200px;
 }
 
-/* line 50, ../sass/main.scss */
+/* line 110, ../sass/main.scss */
 .folder-body a {
   display: block;
 }
 
-/* line 55, ../sass/main.scss */
+/* line 115, ../sass/main.scss */
 .folder-header {
   padding: 5px;
-  background-color: #e1e1e1;
-  margin: 3px 0;
 }

@@ -1,7 +1,32 @@
 $base-color: #2E9870;
-
+body {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+}
+input {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+}
 h1,h2,h3,h4 {
 	line-height: 1;
+}
+a {
+	color: $base-color;
+	-webkit-transition: all .2s ease-in-out;
+	&:hover {
+		color: lighten( $base-color, 10% );
+	}
+}
+input[type=text]#newFolderName {
+	outline:0;
+	border:0;
+	font-size: 22px;
+	border-bottom: 1px solid #eee;
+	margin-bottom: 20px;
+	width: 100%;
+}
+#selectTitle {
+	padding: 30px 40px;
 }
 
 .button {
@@ -18,18 +43,53 @@ h1,h2,h3,h4 {
 		display: block;
 		font-size: 22px;
 		padding: 15px 15px;
-		margin-top: 50px;
+		margin: 50px auto;
 
 	}
 
 	&:hover {
+		color: #fff;
 		background-color: lighten( $base-color, 10% );
 	}
 
 }
+.folder-list-input {
+	background-color: transparent;
+	border: 0;
+	width: 200px;
+	outline: 0;
+	font-size: 16px;
+}
 .right {
 	float: right;
 }
+.folder {
+	background-color: #e1e1e1;
+	&:nth-child(odd){
+		background-color: #f1f1f1;
+	}
+	a {
+		// color: #fff;
+	}
+}
+.badge {
+	background-color: $base-color;
+	font-size: 12px;
+	border-radius: 100%;
+	color: #fff;
+	display: inline-block;
+	height: 15px;
+	width: 15px;
+	text-align: center;
+	line-height: 1.4;
+}
+.folder-nav {
+	display: inline-block;
+	a, span {
+		margin: 0 5px;
+	}
+}
+
 h1#ext-title{
 	font-size: 16px;
 	float: left;
@@ -42,7 +102,7 @@ header {
 
 #main {
 	width: 400px;
-	min-height: 200px;
+	// min-height: 200px;
 }
 
 
@@ -54,6 +114,5 @@ header {
 
 .folder-header {
 	padding: 5px;
-	background-color: #e1e1e1;
-	margin: 3px 0;
+	// background-color: #e1e1e1;
 }

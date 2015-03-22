@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Tab Manager</title>
 	<link rel="stylesheet" href="http://s3.richardkeller.net/cdn/reset.css">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="fa/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/main.css">
 </head>
@@ -13,16 +14,19 @@
 		
 		<header>
 			<h1 id="ext-title">{{project_title}}</h1>
-			<a ng-if="folders.length > 0" href="#" class="button right" ng-click="addFolder()">Add Folder&nbsp;<i class="fa fa-plus"></i></a>
+			<!-- <span>Current Folder Index: {{current_folder}}</span> -->
+			<a ng-if="folders.length > 0" href="#" class="button right" ng-click="addFolder()">
+				<i class="fa fa-plus"></i>&nbsp;&nbsp;
+				Add Folder
+			</a>
 			<div class="clearfix"></div>
 		</header>
 
 		<div ng-show="newTitle" id="selectTitle">
-			<label>Enter a Title</label>
 			<input type="text" id="newFolderName" class="title" placeholder="Type a title">
 			<br>
-			<a href="#save-title" ng-click="saveNewFolder()" class="button">Save</a>
-			<a href="#cancel-title" class="button">Cancel</a>
+			<a href="#save-title" 	ng-click="saveNewFolder()" class="button">Save</a>
+			<a href="#cancel-title" ng-click="cancelNewFolder()" class="button">Cancel</a>
 		</div>
 
 		<!-- {{current_tabs}} -->
@@ -33,14 +37,20 @@
 		<div ng-show="showFolderList" id="folder-list">
 			<div class="folder" ng-repeat="folder in folders track by $index" data-index="{{$index}}">
 				<div class="folder-header">
-					<input type="text" ng-model="folder.name">
-					<a href="#toggle">Active/Inactive</a>
-					- <a href="#addTabs" ng-click="addTabUi($index)">Add Tabs</a>
-					<!-- <span class="badge">{{folder.tabs.length}}</span> -->
-					<!-- <span class="fa fa-plus" title="view tabs in folder"></span> -->
-					<a href="#" title="Delete Folder and all tabs" ng-click="removeFolder($index)">
-						<i class="fa fa-close"></i>
-					</a>
+					<input type="text" class="folder-list-input" ng-model="folder.name" ng-keyup="syncFolders()">
+					
+					<nav class="folder-nav">
+						
+						<span class="badge" title="Tab Count">{{folder.tabs.length}}</span>
+						<a href="#" ng-click="activateTabs( $index )" title="Open Tabs"><i class="fa fa-eye"></i></a>
+						<a href="#" ng-click="deactiveTabs( $index )" title="Close Tabs"><i class="fa fa-eye-slash"></i></a>
+						<a href="#addTabs" ng-click="addTabUi($index)" title="Add Tabs"><i class="fa fa-plus"></i></a>
+
+						<!-- <span class="fa fa-plus" title="view tabs in folder"></span> -->
+						<a href="#" title="Delete Folder and all tabs" ng-click="removeFolder($index)">
+							<i class="fa fa-close"></i>
+						</a>
+					</nav>					
 					<!-- <span class="fa fa-plus" title="Add Tab to Folder"></span>				 -->
 				</div>
 				<div class="folder-body">
@@ -51,19 +61,21 @@
 		<div id="addTab" ng-show="addTabs">
 			
 			<div ng-repeat="tab in current_tabs">
-				<!-- <img ng-if="tab.favIconUrl" src="{{tab.favIconUrl}}" style="width: 10px;"> -->
-				<a class="tab" href="{{tab.url}}">{{tab.title}}</a>
-				<input type="checkbox" ng-click="addToCurrentFolder(tab)">
+				<div style="width: 10px; display:inline-block;">
+					<img ng-if="tab.favIconUrl" src="{{tab.favIconUrl}}" style="width: 10px;">
+				</div>
+				<input type="checkbox" ng-click="toggleTab(tab)">
+				<a class="tab" href="{{tab.url}}" title="{{tab.title}}">{{tab.title | limitTo: 45 }}</a>
 			</div>
 
-			<a href="#saveSelectedTabs" ng-click="saveSelectedTabs()" class="button">Save</a>
-			<a href="#" ng-click="dontSaveTabs()" class="button">Cancel</a>
+			<a href="#" ng-click="saveSelectedTabs()" 	class="button">Save</a>
+			<a href="#" ng-click="dontSaveTabs()" 		class="button">Cancel</a>
 
 		</div>
 		
 
-		<pre><h1>current folder index: {{current_folder}}</h1></pre>
-		<pre>{{folders}}</pre>
+		<!-- <pre><h1>current folder index: {{current_folder}}</h1></pre> -->
+		<!-- <pre>{{folders}}</pre> -->
 
 
 
