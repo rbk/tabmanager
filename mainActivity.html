@@ -17,28 +17,25 @@
 			<div class="clearfix"></div>
 		</header>
 
-		<div id="selectTitle">
+		<div ng-show="newTitle" id="selectTitle">
 			<label>Enter a Title</label>
-			<input type="text" class="title" placeholder="Type a title">
+			<input type="text" id="newFolderName" class="title" placeholder="Type a title">
 			<br>
-			<a href="#save-title" class="button">Save</a>
+			<a href="#save-title" ng-click="saveNewFolder()" class="button">Save</a>
 			<a href="#cancel-title" class="button">Cancel</a>
 		</div>
 
 		<!-- {{current_tabs}} -->
-		<div ng-repeat="tab in current_tabs">
-			<!-- <img ng-if="tab.favIconUrl" src="{{tab.favIconUrl}}" style="width: 10px;"> -->
-			<!-- <a href="{{tab.url}}">{{tab.title}}</a> -->
-		</div>
 
-		<a ng-if="folders.length === 0" href="#" class="button lg" ng-click="addFolder()">Add Folder</a>
+		<a ng-if="folders.length === 0" ng-hide="newTitle" href="#" class="button lg" ng-click="addFolder()">Add Folder</a>
 		
 
-		<div id="folder-list">
-			<div class="folder" ng-repeat="folder in folders" data-index="{{$index}}">
+		<div ng-show="showFolderList" id="folder-list">
+			<div class="folder" ng-repeat="folder in folders track by $index" data-index="{{$index}}">
 				<div class="folder-header">
 					<input type="text" ng-model="folder.name">
 					<a href="#toggle">Active/Inactive</a>
+					- <a href="#addTabs" ng-click="addTabUi($index)">Add Tabs</a>
 					<!-- <span class="badge">{{folder.tabs.length}}</span> -->
 					<!-- <span class="fa fa-plus" title="view tabs in folder"></span> -->
 					<a href="#" title="Delete Folder and all tabs" ng-click="removeFolder($index)">
@@ -51,6 +48,21 @@
 				</div>
  			</div>
 		</div>
+		<div id="addTab" ng-show="addTabs">
+			
+			<div ng-repeat="tab in current_tabs">
+				<!-- <img ng-if="tab.favIconUrl" src="{{tab.favIconUrl}}" style="width: 10px;"> -->
+				<a class="tab" href="{{tab.url}}">{{tab.title}}</a>
+				<input type="checkbox" ng-click="addToCurrentFolder(tab)">
+			</div>
+
+			<a href="#saveSelectedTabs" ng-click="saveSelectedTabs()" class="button">Save</a>
+			<a href="#" ng-click="dontSaveTabs()" class="button">Cancel</a>
+
+		</div>
+		
+
+		<pre><h1>current folder index: {{current_folder}}</h1></pre>
 		<pre>{{folders}}</pre>
 
 
