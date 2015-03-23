@@ -4,8 +4,9 @@ app.controller('MainCtrl', ['$scope', '$http', function($scope, $http){
 
 	$scope.newTitle = false;
 	$scope.showFolderList = false;
-	$scope.addTabs = false;
 	$scope.current_folder = null;
+	$scope.addingTabs = false;
+	$scope.boxWidth = "400px";
 
 	$scope.active = '';
 	$scope.project_title = 'Tab Workspace Manager';
@@ -59,11 +60,13 @@ app.controller('MainCtrl', ['$scope', '$http', function($scope, $http){
 
 	$scope.addTabUi = function( index ){
 		$scope.current_folder = index;
-		$scope.addTabs = true;
+		$scope.addingTabs = true;
+		$scope.boxWidth = '800px;'
 	}
 	$scope.addToCurrentFolder = function( tab ){
 		// console.log( tabUrl )
-		$scope.folders[$scope.current_folder].tabs.push(tab)
+		$scope.folders[$scope.current_folder].tabs.push(tab);
+		$scope.syncFolders();
 	}
 	$scope.toggleTab = function( newtab ){
 		var allTabsInFolder = $scope.folders[$scope.current_folder].tabs;
@@ -105,6 +108,17 @@ app.controller('MainCtrl', ['$scope', '$http', function($scope, $http){
 			}
 		}
 		chrome.tabs.remove( tabsToRemove, function(){ return });
+	}
+	$scope.removeTabFromFolder = function( index ){
+		$scope.folders[$scope.current_folder].tabs.splice(index, 1);
+		$scope.syncFolders();
+	}
+	$scope.showTabsInFolder = function( index ){
+		$scope.current_folder = index;
+	}
+	$scope.turnOffTabAdding = function( ){
+		$scope.addingTabs = false;
+		$scope.boxWidth = "400px";
 	}
 	
 	// Get all tabs currently open

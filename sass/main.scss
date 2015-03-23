@@ -1,4 +1,6 @@
-$base-color: #2E9870;
+// $base-color: #2E9870;// fa green
+$base-color: #2464DA; // blue
+// $base-color: #D57100; // orange
 body {
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 300;
@@ -16,6 +18,11 @@ a {
 	&:hover {
 		color: lighten( $base-color, 10% );
 	}
+}
+p {
+	font-size: 12px;
+	padding: 10px;
+	background-color: #FFF;
 }
 input[type=text]#newFolderName {
 	outline:0;
@@ -90,7 +97,7 @@ input[type=text]#newFolderName {
 	}
 }
 
-h1#ext-title{
+h1 {
 	font-size: 16px;
 	float: left;
 	padding: 8px;
@@ -101,14 +108,44 @@ header {
 }
 
 #main {
+	position: absolute;
+	right:0;
 	width: 400px;
 	// min-height: 200px;
 }
+#wrapper {
+	width: 800px;
+	position: relative;
+}
+#available-tabs {
+	position: absolute;
+	width: 400px;
+	left:0;
+	border-right: 1px solid #e4e4e4;
+}
 
 
-
-.folder-body a {
-	display: block;
+.folder-body, #tab-list {
+	a {
+		position: relative;
+		font-size: 12px;
+		display: block;
+		padding: 3px 10px;
+		background-color: #fff;
+		font-weight: 500;
+		border-top: 1px solid #eee;
+		&:nth-child(odd){
+			background-color: #fff;
+		}
+		&:hover {
+			background-color: #fcfcfc;
+		}
+	}
+	i {
+		position: absolute;
+		right: 10px;
+		top: 3px;
+	}
 }
 
 

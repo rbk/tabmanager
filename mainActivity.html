@@ -9,12 +9,40 @@
 	<link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-	<div id="main" ng-controller="MainCtrl">
-
+	<div id="wrapper" ng-controller="MainCtrl" style="width:{{boxWidth}}">
 		
+		<div id="available-tabs" ng-show="addingTabs">
+			<header>
+				<h1>Available Tabs</h1>
+				<a href="#" class="right button" ng-click="turnOffTabAdding()">
+					<i class="fa fa-close"></i>&nbsp;&nbsp;
+					Close
+				</a>
+				<div class="clearfix"></div>
+			</header>
+			<div id="addTab">
+				
+				<div ng-repeat="tab in current_tabs track by $index" id="tab-list">
+					<!-- <div style="width: 10px; display:inline-block;"> -->
+						<!-- <img ng-if="tab.favIconUrl" src="{{tab.favIconUrl}}" style="width: 10px;"> -->
+					<!-- </div> -->
+					<a class="tab" ng-click="addToCurrentFolder(tab)" href="{{tab.url}}" title="{{tab.title}}">
+						<img ng-if="tab.favIconUrl" src="{{tab.favIconUrl}}" style="width: 10px;">
+						<span>{{tab.title | limitTo: 45 }}</span>
+					</a>
+				</div>
+
+				<!-- <a href="#" ng-click="saveSelectedTabs()" 	class="button">Save</a> -->
+				<!-- <a href="#" ng-click="dontSaveTabs()" 		class="button">Cancel</a> -->
+
+			</div>
+		</div>
+		
+		<div id="main">
+			
 		<header>
 			<h1 id="ext-title">{{project_title}}</h1>
-			<!-- <span>Current Folder Index: {{current_folder}}</span> -->
+			<!-- <span>cfi: {{current_folder}}</span> -->
 			<a ng-if="folders.length > 0" href="#" class="button right" ng-click="addFolder()">
 				<i class="fa fa-plus"></i>&nbsp;&nbsp;
 				Add Folder
@@ -37,14 +65,18 @@
 		<div ng-show="showFolderList" id="folder-list">
 			<div class="folder" ng-repeat="folder in folders track by $index" data-index="{{$index}}">
 				<div class="folder-header">
+					
 					<input type="text" class="folder-list-input" ng-model="folder.name" ng-keyup="syncFolders()">
 					
 					<nav class="folder-nav">
-						
 						<span class="badge" title="Tab Count">{{folder.tabs.length}}</span>
+						<a href="#" ng-click="showTabsInFolder( $index )" title="Show Tabs">
+							<i ng-show="current_folder == $index" class="fa fa-folder-open"></i>
+							<i ng-hide="current_folder == $index" class="fa fa-folder"></i>
+						</a>
 						<a href="#" ng-click="activateTabs( $index )" title="Open Tabs"><i class="fa fa-eye"></i></a>
 						<a href="#" ng-click="deactiveTabs( $index )" title="Close Tabs"><i class="fa fa-eye-slash"></i></a>
-						<a href="#addTabs" ng-click="addTabUi($index)" title="Add Tabs"><i class="fa fa-plus"></i></a>
+						<a href="#addTabs" ng-click="addTabUi( $index )" title="Add Tabs"><i class="fa fa-plus"></i></a>
 
 						<!-- <span class="fa fa-plus" title="view tabs in folder"></span> -->
 						<a href="#" title="Delete Folder and all tabs" ng-click="removeFolder($index)">
@@ -53,25 +85,19 @@
 					</nav>					
 					<!-- <span class="fa fa-plus" title="Add Tab to Folder"></span>				 -->
 				</div>
-				<div class="folder-body">
-					<a href="{{tab.url}}" ng-repeat="tab in folder.tabs">{{tab.name}}</a>
+				<div class="folder-body" ng-show="current_folder == $index" data-index={{$index}}>
+					<a href="{{tab.url}}" ng-repeat="tab in folder.tabs track by $index" title="{{tab.title}}">
+						{{tab.title | limitTo: 50}}...
+						<i ng-click="removeTabFromFolder($index)" title="Remove Tab from Folder" class="">Remove</i>
+					</a>
+					<div ng-if="folder.tabs.length == 0">
+						<p>No tabs in this folder.</p>
+						<!-- <p>Click the links to left to add tabs in this folder.</p> -->
+					</div>
 				</div>
  			</div>
 		</div>
-		<div id="addTab" ng-show="addTabs">
-			
-			<div ng-repeat="tab in current_tabs">
-				<div style="width: 10px; display:inline-block;">
-					<img ng-if="tab.favIconUrl" src="{{tab.favIconUrl}}" style="width: 10px;">
-				</div>
-				<input type="checkbox" ng-click="toggleTab(tab)">
-				<a class="tab" href="{{tab.url}}" title="{{tab.title}}">{{tab.title | limitTo: 45 }}</a>
-			</div>
 
-			<a href="#" ng-click="saveSelectedTabs()" 	class="button">Save</a>
-			<a href="#" ng-click="dontSaveTabs()" 		class="button">Cancel</a>
-
-		</div>
 		
 
 		<!-- <pre><h1>current folder index: {{current_folder}}</h1></pre> -->
@@ -80,7 +106,8 @@
 
 
 
-	</div>
+		</div> <!-- end #main -->
+	</div> <!-- end controller -->
 <script src="js/jquery/jquery.min.js"></script>
 <script src="js/angular/angular.min.js"></script>
 <script src="js/main.js"></script>
