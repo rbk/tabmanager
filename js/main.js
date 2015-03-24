@@ -15,10 +15,18 @@ app.controller('MainCtrl', ['$scope', '$http', function($scope, $http){
 
 	// Storage
 	chrome.storage.local.get('tabManager', function(result) {
-		$scope.folders = result.tabManager;
-		$scope.$apply();
-		if( $scope.folders.length > 0 ){
-			$scope.showFolderList = true;
+		
+		if( !result.tabManager.length ){
+			chrome.storage.local.set({'tabManager': $scope.folders }, function() {
+		});
+		} else {
+			
+		
+			$scope.folders = result.tabManager;
+			$scope.$apply();
+			if( $scope.folders.length > 0 ){
+				$scope.showFolderList = true;
+			}
 		}
 		// console.log( result )
 	});
