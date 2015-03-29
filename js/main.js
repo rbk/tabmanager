@@ -13,6 +13,8 @@ app.controller('MainCtrl', ['$scope', '$http', function($scope, $http){
 	$scope.current_tabs = [];
 	$scope.folders = [];
 
+	$scope.tabsInWindow = [];
+
 	// Storage
 	chrome.storage.local.get('tabManager', function(result) {
 		
@@ -32,8 +34,8 @@ app.controller('MainCtrl', ['$scope', '$http', function($scope, $http){
 	});
 
 	$scope.syncFolders = function( ){
-		chrome.storage.local.set({'tabManager': $scope.folders }, function() {
-		});
+		chrome.storage.local.set({'tabManager': $scope.folders }, function() {});
+		$scope.filterCurrentTabs();
 	}
 
 	$scope.addFolder = function( ){
@@ -66,10 +68,31 @@ app.controller('MainCtrl', ['$scope', '$http', function($scope, $http){
 		$scope.syncFolders();
 	}
 
+	$scope.filterCurrentTabs = function( ){
+		$scope.current_tabs = $scope.tabsInWindow;
+		console.log( $scope.tabsInWindow.length )
+		var data = $scope.folders[$scope.current_folder];
+
+		if( data ){
+
+			for( var i=0; i< $scope.tabsInWindow.length; i++ ){
+				var tabtitle = $scope.tabsInWindow[i].title
+				
+				for( var c=0; c<data.tabs.length; c++ ){
+					if( data.tabs[c].title == tabtitle ){
+						$scope.current_tabs.splice( i,1 );
+					}
+
+				}
+			}
+		}
+	}
 	$scope.addTabUi = function( index ){
 		$scope.current_folder = index;
 		$scope.addingTabs = true;
-		$scope.boxWidth = '800px;'
+		$scope.boxWidth = '800px;';
+		$scope.current_tabs = $scope.tabsInWindow;
+		$scope.filterCurrentTabs();
 	}
 	$scope.addToCurrentFolder = function( tab ){
 		// console.log( tabUrl )
@@ -119,6 +142,11 @@ app.controller('MainCtrl', ['$scope', '$http', function($scope, $http){
 	}
 	$scope.removeTabFromFolder = function( index ){
 		$scope.folders[$scope.current_folder].tabs.splice(index, 1);
+		// $scope.current_tabs.push( $scope.folders[$scope.current_folder].tabs[index] )
+
+		// $scope.current_tabs = $scope.tabsInWindow;
+		// $scope.filterCurrentTabs();.
+
 		$scope.syncFolders();
 	}
 	$scope.showTabsInFolder = function( index ){
@@ -128,15 +156,21 @@ app.controller('MainCtrl', ['$scope', '$http', function($scope, $http){
 		$scope.addingTabs = false;
 		$scope.boxWidth = "400px";
 	}
-	
-	// Get all tabs currently open
-	var queryInfo = {
-		currentWindow: true
-	};
-	chrome.tabs.query(queryInfo, function(tabs){
-		$scope.current_tabs = tabs;
-		$scope.$apply();
-	});
+	function getAllTabs( ){
+		// Get all tabs currently open
+		var queryInfo = {
+			currentWindow: true
+		};
+		chrome.tabs.query(queryInfo, function(tabs){
+			$scope.current_tabs = tabs;
+			$scope.tabsInWindow = tabs;
+			$scope.$apply();
+		});
+	}
+
+
+	// init
+	getAllTabs();
 
 
 

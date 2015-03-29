@@ -112,11 +112,13 @@ header {
 	position: absolute;
 	right:0;
 	width: 400px;
-	// min-height: 200px;
+	background-color: #FFF;
 }
 #wrapper {
-	width: 800px;
+	width: 400px;
 	position: relative;
+	// -webkit-transition: width .2s ease-in-out;
+	// transition: all .5s ease-in-out;
 }
 #available-tabs {
 	position: absolute;

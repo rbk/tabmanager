@@ -135,15 +135,16 @@ header {
   position: absolute;
   right: 0;
   width: 400px;
+  background-color: #FFF;
 }
 
 /* line 117, ../sass/main.scss */
 #wrapper {
-  width: 800px;
+  width: 400px;
   position: relative;
 }
 
-/* line 121, ../sass/main.scss */
+/* line 123, ../sass/main.scss */
 #available-tabs {
   position: absolute;
   width: 400px;
@@ -151,7 +152,7 @@ header {
   border-right: 1px solid #e4e4e4;
 }
 
-/* line 130, ../sass/main.scss */
+/* line 132, ../sass/main.scss */
 .folder-body a, #tab-list a {
   position: relative;
   font-size: 12px;
@@ -161,22 +162,22 @@ header {
   font-weight: 500;
   border-top: 1px solid #eee;
 }
-/* line 138, ../sass/main.scss */
+/* line 140, ../sass/main.scss */
 .folder-body a:nth-child(odd), #tab-list a:nth-child(odd) {
   background-color: #fff;
 }
-/* line 141, ../sass/main.scss */
+/* line 143, ../sass/main.scss */
 .folder-body a:hover, #tab-list a:hover {
   background-color: #fcfcfc;
 }
-/* line 145, ../sass/main.scss */
+/* line 147, ../sass/main.scss */
 .folder-body i, #tab-list i {
   position: absolute;
   right: 10px;
   top: 3px;
 }
 
-/* line 153, ../sass/main.scss */
+/* line 155, ../sass/main.scss */
 .folder-header {
   padding: 5px;
 }

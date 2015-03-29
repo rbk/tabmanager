@@ -12,7 +12,7 @@
 <body>
 	<div id="wrapper" ng-controller="MainCtrl" style="width:{{boxWidth}}">
 		
-		<div id="available-tabs" ng-show="addingTabs" ng-class="addingTabs ? 'animated fadeIn' : null">
+		<div id="available-tabs" ng-show="addingTabs">
 			<header>
 				<h1>Available Tabs</h1>
 				<a href="#" class="right button" ng-click="turnOffTabAdding()">
@@ -28,7 +28,7 @@
 						<!-- <img ng-if="tab.favIconUrl" src="{{tab.favIconUrl}}" style="width: 10px;"> -->
 					<!-- </div> -->
 					<a class="tab" ng-click="addToCurrentFolder(tab)" href="{{tab.url}}" title="{{tab.title}}">
-						<img ng-if="tab.favIconUrl" src="{{tab.favIconUrl}}" style="width: 10px;">
+						<img ng-if="tab.favIconUrl" src="{{tab.favIconUrl}}" style="width: 16px;">
 						<span>{{tab.title | limitTo: 45 }}</span>
 					</a>
 				</div>
