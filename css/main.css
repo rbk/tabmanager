@@ -87,14 +87,15 @@ input[type=text]#newFolderName {
 
 /* line 73, ../sass/main.scss */
 .folder {
+  overflow: hidden;
   background-color: #e1e1e1;
 }
-/* line 75, ../sass/main.scss */
+/* line 76, ../sass/main.scss */
 .folder:nth-child(odd) {
   background-color: #f1f1f1;
 }
 
-/* line 82, ../sass/main.scss */
+/* line 83, ../sass/main.scss */
 .badge {
   background-color: #2464DA;
   font-size: 12px;
@@ -107,42 +108,42 @@ input[type=text]#newFolderName {
   line-height: 1.4;
 }
 
-/* line 93, ../sass/main.scss */
+/* line 94, ../sass/main.scss */
 .folder-nav {
   display: inline-block;
 }
-/* line 95, ../sass/main.scss */
+/* line 96, ../sass/main.scss */
 .folder-nav a, .folder-nav span {
   margin: 0 5px;
 }
 
-/* line 100, ../sass/main.scss */
+/* line 101, ../sass/main.scss */
 h1 {
   font-size: 16px;
   float: left;
   padding: 8px;
 }
 
-/* line 105, ../sass/main.scss */
+/* line 106, ../sass/main.scss */
 header {
   background-color: #2464DA;
   color: #fff;
 }
 
-/* line 110, ../sass/main.scss */
+/* line 111, ../sass/main.scss */
 #main {
   position: absolute;
   right: 0;
   width: 400px;
 }
 
-/* line 116, ../sass/main.scss */
+/* line 117, ../sass/main.scss */
 #wrapper {
   width: 800px;
   position: relative;
 }
 
-/* line 120, ../sass/main.scss */
+/* line 121, ../sass/main.scss */
 #available-tabs {
   position: absolute;
   width: 400px;
@@ -150,7 +151,7 @@ header {
   border-right: 1px solid #e4e4e4;
 }
 
-/* line 129, ../sass/main.scss */
+/* line 130, ../sass/main.scss */
 .folder-body a, #tab-list a {
   position: relative;
   font-size: 12px;
@@ -160,22 +161,22 @@ header {
   font-weight: 500;
   border-top: 1px solid #eee;
 }
-/* line 137, ../sass/main.scss */
+/* line 138, ../sass/main.scss */
 .folder-body a:nth-child(odd), #tab-list a:nth-child(odd) {
   background-color: #fff;
 }
-/* line 140, ../sass/main.scss */
+/* line 141, ../sass/main.scss */
 .folder-body a:hover, #tab-list a:hover {
   background-color: #fcfcfc;
 }
-/* line 144, ../sass/main.scss */
+/* line 145, ../sass/main.scss */
 .folder-body i, #tab-list i {
   position: absolute;
   right: 10px;
   top: 3px;
 }
 
-/* line 152, ../sass/main.scss */
+/* line 153, ../sass/main.scss */
 .folder-header {
   padding: 5px;
 }

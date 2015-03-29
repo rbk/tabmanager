@@ -6,12 +6,13 @@
 	<link rel="stylesheet" href="http://s3.richardkeller.net/cdn/reset.css">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="fa/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/animate.css">
 	<link rel="stylesheet" href="css/main.css">
 </head>
 <body>
 	<div id="wrapper" ng-controller="MainCtrl" style="width:{{boxWidth}}">
 		
-		<div id="available-tabs" ng-show="addingTabs">
+		<div id="available-tabs" ng-show="addingTabs" ng-class="addingTabs ? 'animated fadeIn' : null">
 			<header>
 				<h1>Available Tabs</h1>
 				<a href="#" class="right button" ng-click="turnOffTabAdding()">
@@ -85,7 +86,7 @@
 					</nav>					
 					<!-- <span class="fa fa-plus" title="Add Tab to Folder"></span>				 -->
 				</div>
-				<div class="folder-body" ng-show="current_folder == $index" data-index={{$index}}>
+				<div class="folder-body" ng-class="current_folder == $index ? 'animated fadeIn' : null" ng-show="current_folder == $index" data-index={{$index}}>
 					<a href="{{tab.url}}" ng-repeat="tab in folder.tabs track by $index" title="{{tab.title}}">
 						{{tab.title | limitTo: 50}}...
 						<i ng-click="removeTabFromFolder($index)" title="Remove Tab from Folder" class="">Remove</i>
