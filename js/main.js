@@ -1,4 +1,9 @@
 var app = angular.module('tabManager', []);
+var masterTabList = [];
+var queryInfo = {
+	currentWindow: true
+};
+
 
 app.controller('MainCtrl', ['$scope', '$http', function($scope, $http){
 
@@ -13,7 +18,8 @@ app.controller('MainCtrl', ['$scope', '$http', function($scope, $http){
 	$scope.current_tabs = [];
 	$scope.folders = [];
 
-	$scope.tabsInWindow = [];
+	
+
 
 	// Storage
 	chrome.storage.local.get('tabManager', function(result) {
@@ -34,7 +40,8 @@ app.controller('MainCtrl', ['$scope', '$http', function($scope, $http){
 	});
 
 	$scope.syncFolders = function( ){
-		chrome.storage.local.set({'tabManager': $scope.folders }, function() {});
+		chrome.storage.local.set({'tabManager': $scope.folders }, function() {
+		});
 		$scope.filterCurrentTabs();
 	}
 
@@ -66,23 +73,28 @@ app.controller('MainCtrl', ['$scope', '$http', function($scope, $http){
 		var conf = confirm('Are you sure you want to delete this folder and all of its tabs?'); if( !conf ) { return };
 		$scope.folders.splice(index, 1);
 		$scope.syncFolders();
+
 	}
 
 	$scope.filterCurrentTabs = function( ){
-		$scope.current_tabs = $scope.tabsInWindow;
-		console.log( $scope.tabsInWindow.length )
+
+		$scope.current_tabs = angular.copy(masterTabList);
+
+		// console.log( masterTabList.length )
+		// console.log( $scope.current_tabs.length )
+
 		var data = $scope.folders[$scope.current_folder];
 
 		if( data ){
-
-			for( var i=0; i< $scope.tabsInWindow.length; i++ ){
-				var tabtitle = $scope.tabsInWindow[i].title
-				
-				for( var c=0; c<data.tabs.length; c++ ){
-					if( data.tabs[c].title == tabtitle ){
+			// console.log(data)
+			for( var c=0; c<data.tabs.length; c++ ){
+				for( var i=0; i< $scope.current_tabs.length; i++ ){
+					var tabtitle = $scope.current_tabs[i].title
+					// console.log( data.tabs[c].title + ' == ' + tabtitle )
+					if( data.tabs[c].title == tabtitle || tabtitle.match(data.tabs[c].title) ){
+						// console.log('MATCH')
 						$scope.current_tabs.splice( i,1 );
 					}
-
 				}
 			}
 		}
@@ -91,7 +103,6 @@ app.controller('MainCtrl', ['$scope', '$http', function($scope, $http){
 		$scope.current_folder = index;
 		$scope.addingTabs = true;
 		$scope.boxWidth = '800px;';
-		$scope.current_tabs = $scope.tabsInWindow;
 		$scope.filterCurrentTabs();
 	}
 	$scope.addToCurrentFolder = function( tab ){
@@ -142,12 +153,8 @@ app.controller('MainCtrl', ['$scope', '$http', function($scope, $http){
 	}
 	$scope.removeTabFromFolder = function( index ){
 		$scope.folders[$scope.current_folder].tabs.splice(index, 1);
-		// $scope.current_tabs.push( $scope.folders[$scope.current_folder].tabs[index] )
-
-		// $scope.current_tabs = $scope.tabsInWindow;
-		// $scope.filterCurrentTabs();.
-
 		$scope.syncFolders();
+
 	}
 	$scope.showTabsInFolder = function( index ){
 		$scope.current_folder = index;
@@ -163,12 +170,16 @@ app.controller('MainCtrl', ['$scope', '$http', function($scope, $http){
 		};
 		chrome.tabs.query(queryInfo, function(tabs){
 			$scope.current_tabs = tabs;
-			$scope.tabsInWindow = tabs;
 			$scope.$apply();
 		});
 	}
-
-
+	function getMasterTabList( ){
+		chrome.tabs.query(queryInfo, function(alltabs){
+			masterTabList = alltabs;
+		});
+	}
+	// create master tab list
+	getMasterTabList();
 	// init
 	getAllTabs();
 

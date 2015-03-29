@@ -157,7 +157,7 @@ header {
   position: relative;
   font-size: 12px;
   display: block;
-  padding: 3px 10px;
+  padding: 5px 10px;
   background-color: #fff;
   font-weight: 500;
   border-top: 1px solid #eee;
@@ -170,14 +170,30 @@ header {
 .folder-body a:hover, #tab-list a:hover {
   background-color: #fcfcfc;
 }
-/* line 147, ../sass/main.scss */
+/* line 146, ../sass/main.scss */
+.folder-body a img, .folder-body a span, #tab-list a img, #tab-list a span {
+  vertical-align: middle;
+  display: inline-block;
+}
+/* line 150, ../sass/main.scss */
+.folder-body a img, #tab-list a img {
+  margin-right: 12px;
+  width: 16px;
+}
+/* line 154, ../sass/main.scss */
+.folder-body a .no-favicon, #tab-list a .no-favicon {
+  color: #C5C5C5;
+  font-size: 16px;
+  margin-right: 12px;
+}
+/* line 160, ../sass/main.scss */
 .folder-body i, #tab-list i {
   position: absolute;
   right: 10px;
   top: 3px;
 }
 
-/* line 155, ../sass/main.scss */
+/* line 168, ../sass/main.scss */
 .folder-header {
   padding: 5px;
 }

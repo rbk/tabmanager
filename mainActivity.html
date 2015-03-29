@@ -14,7 +14,7 @@
 		
 		<div id="available-tabs" ng-show="addingTabs">
 			<header>
-				<h1>Available Tabs</h1>
+				<h1>Available Tabs <span class="badge">{{current_tabs.length}}</span></h1>
 				<a href="#" class="right button" ng-click="turnOffTabAdding()">
 					<i class="fa fa-close"></i>&nbsp;&nbsp;
 					Close
@@ -28,7 +28,9 @@
 						<!-- <img ng-if="tab.favIconUrl" src="{{tab.favIconUrl}}" style="width: 10px;"> -->
 					<!-- </div> -->
 					<a class="tab" ng-click="addToCurrentFolder(tab)" href="{{tab.url}}" title="{{tab.title}}">
-						<img ng-if="tab.favIconUrl" src="{{tab.favIconUrl}}" style="width: 16px;">
+						<img ng-if="tab.favIconUrl" src="{{tab.favIconUrl}}">
+						<div ng-if="!tab.favIconUrl" class="fa fa-file-o no-favicon"></div>
+						<!-- <div class="fa fa-file-o no-favicon"></div> -->
 						<span>{{tab.title | limitTo: 45 }}</span>
 					</a>
 				</div>
@@ -88,6 +90,8 @@
 				</div>
 				<div class="folder-body" ng-class="current_folder == $index ? 'animated fadeIn' : null" ng-show="current_folder == $index" data-index={{$index}}>
 					<a href="{{tab.url}}" ng-repeat="tab in folder.tabs track by $index" title="{{tab.title}}">
+						<img ng-if="tab.favIconUrl" src="{{tab.favIconUrl}}">
+						<div ng-if="!tab.favIconUrl" class="fa fa-file-o no-favicon"></div>
 						{{tab.title | limitTo: 50}}...
 						<i ng-click="removeTabFromFolder($index)" title="Remove Tab from Folder" class="">Remove</i>
 					</a>
