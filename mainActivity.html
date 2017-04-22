@@ -88,7 +88,7 @@
 					</nav>					
 					<!-- <span class="fa fa-plus" title="Add Tab to Folder"></span>				 -->
 				</div>
-				<div class="folder-body" ng-class="current_folder == $index ? 'animated fadeIn' : null" ng-show="current_folder == $index" data-index={{$index}}>
+				<div class="folder-body" ng-class="current_folder == $index ? '' : null" ng-show="current_folder == $index" data-index={{$index}}>
 					<a href="{{tab.url}}" ng-repeat="tab in folder.tabs track by $index" title="{{tab.title}}">
 						<img ng-if="tab.favIconUrl" src="{{tab.favIconUrl}}">
 						<div ng-if="!tab.favIconUrl" class="fa fa-file-o no-favicon"></div>
